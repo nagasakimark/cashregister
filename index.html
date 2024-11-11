@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Horizon Restaurant</title>
+    <style>
+        @font-face {
+            font-family: 'NH';
+            src: url('nh.otf') format('opentype');
+        }
+        
+        @font-face {
+            font-family: 'DS-Digital';
+            src: url('dsdigi.ttf') format('truetype');
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'NH', Arial, sans-serif;
+			background-color: #ffbb00;
+			background-image: linear-gradient( 179deg,  rgba(255, 196, 2, 0.9) 9.6%, rgba(243, 206, 71, 0.8) 50.1% );
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            overflow: hidden;
+        }
+        .header {
+            text-align: center;
+            padding: 10px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #fff;
+            text-shadow: 3px 3px 0 #e8a702;
+        }
+        .container {
+            display: flex;
+            gap: 15px;
+            flex: 1;
+            padding: 0 10px 10px 10px;
+            min-height: 0;
+        }
+        .products {
+            flex: 1;
+            background: #FFE066;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            border: 3px solid rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        .register-section {
+            display: flex;
+            gap: 15px;
+            flex: 2;
+        }
+        .register {
+            flex: 3;
+            background: #98f59e;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            border: 3px solid rgba(0,0,0,0.1);
+        }
+        .cart-container {
+            flex: 2;
+            background: #87CEEB;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 3px solid rgba(0,0,0,0.1);
+        }
+        .category {
+            margin-bottom: 20px;
+        }
+        .category-title {
+            font-size: 1.4em;
+            color: #333;
+            margin: 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding-right: 5px;
+            padding-top: 4px;
+        }
+        .product-btn {
+            background: rgba(255,255,255,0.9);
+            border: 3px solid rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s;
+            height: 120px;
+            font-family: 'NH', Arial, sans-serif;
+			font-size: 0.9em;
+        }
+        .product-btn:hover {
+            border-color: #4ECDC4;
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .product-btn.new-set {
+            background: rgba(255,255,255,0.9);
+            border: 3px solid rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s;
+            height: 120px;
+        }
+         .product-img {
+        width: 55px;  
+        height: 55px; 
+        object-fit: cover;
+        margin-bottom: 8px;
+        border-radius: 8px;
+    }
+
+    .set-images-container {
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+        margin-bottom: 8px;
+    }
+
+    .set-mini-img {
+        width: 55px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+        .cart {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            padding: 12px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+        .total {
+            border-top: 3px solid rgba(0,0,0,0.1);
+            margin-top: 10px;
+            padding-top: 15px;
+            font-weight: bold;
+            font-size: 1.4em;
+            color: #333;
+        }
+        .numpad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: auto;
+        }
+        .num-btn {
+            padding: 15px;
+            font-size: 24px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        .num-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .num-btn:active {
+            transform: translateY(1px);
+        }
+        .num-0 { background: #FF851B; }
+        .num-1 { background: #7FDBFF; }
+        .num-2 { background: #B10DC9; }
+        .num-3 { background: #39CCCC; }
+        .num-4 { background: #FF4136; }
+        .num-5 { background: #01FF70; }
+        .num-6 { background: #F012BE; }
+        .num-7 { background: #FFDC00; color: white; }
+        .num-8 { background: #85144b; }
+        .num-9 { background: #3D9970; }
+        .num-00 { background: #FF851B; }
+        
+        .num-enter { 
+            background: #2ECC40;
+            grid-column: span 2;
+            font-size: 20px;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+        }
+        .display {
+            background: #001f3f;
+            color: #01FF70;
+            padding: 15px;
+            font-size: 32px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            font-family: 'DS-Digital', monospace;
+            text-align: right;
+            min-height: 65px;
+            border: 3px solid #00172B;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .message {
+            color: #333;
+            margin-bottom: 12px;
+            min-height: 24px;
+            font-size: 1.2em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .action-btns {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .action-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            flex: 1;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        #checkoutBtn {
+            background: #0074D9;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+        }
+        .action-btn.clear {
+            background: #FF4136;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+        }
+        h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            color: #333;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-title {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .modal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-item {
+            padding: 10px;
+            border: 2px solid #4ECDC4;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .modal-item:hover {
+            background: #4ECDC4;
+            color: white;
+        }
+        .modal-item.selected {
+            background: #4ECDC4;
+            color: white;
+        }
+        .set-name-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #4ECDC4;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 id="page-title" contenteditable="true">New Horizon Restaurant</h1>
+    </div>
+    <div class="container">
+        <div class="products">
+            <h2>Products</h2>
+            <div id="productsContainer"></div>
+        </div>
+        <div class="register-section">
+            <div class="register">
+                <h2>Cash Register</h2>
+                <div class="message" id="message">Select a product to start</div>
+                <div class="display" id="display">¥0</div>
+                <div class="numpad">
+                    <button class="num-btn num-1">1</button>
+                    <button class="num-btn num-2">2</button>
+                    <button class="num-btn num-3">3</button>
+                    <button class="num-btn num-4">4</button>
+                    <button class="num-btn num-5">5</button>
+                    <button class="num-btn num-6">6</button>
+                    <button class="num-btn num-7">7</button>
+                    <button class="num-btn num-8">8</button>
+                    <button class="num-btn num-9">9</button>
+                    <button class="num-btn num-0">0</button>
+                    <button class="num-btn num-00">00</button>
+                    <button class="num-btn num-enter">ENTER</button>
+                </div>
+                <div class="action-btns">
+                    <button class="action-btn" id="checkoutBtn">Checkout</button>
+                    <button class="action-btn clear" id="newOrderBtn">New Order</button>
+                </div>
+            </div>
+            <div class="cart-container">
+                <h2>Current Order</h2>
+                <div class="cart" id="cart"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for creating new sets -->
+    <div class="modal" id="setModal">
+        <div class="modal-content">
+            <div class="modal-title">Create New Set</div>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+	    const pageTitle = document.getElementById('page-title');
+        const products = {
+            set: [
+
+            ],
+            main: [
+                { id: 'main1', name: 'rice', price: 130, image: './products/rice.png' },
+                { id: 'main2', name: 'rice ball', price: 120, image: './products/riceball.png' },
+				{ id: 'main3', name: 'curry and rice', price: 490, image: './products/curryrice.png' },
+				{ id: 'main4', name: 'grilled eel', price: 830, image: './products/grilledeel.png' },
+				{ id: 'main5', name: 'grilled fish', price: 400, image: './products/grilledfish.png' },
+				{ id: 'main6', name: 'bread', price: 160, image: './products/bread.png' },
+				{ id: 'main7', name: 'sandwich', price: 180, image: './products/sandwich.png' },
+				{ id: 'main8', name: 'pancake', price: 300, image: './products/pancake.png' },
+				{ id: 'main9', name: 'pizza', price: 500, image: './products/pizza.png' },
+				{ id: 'main10', name: 'hamburger', price: 340, image: './products/hamburger.png' },
+				{ id: 'main11', name: 'hot dog', price: 290, image: './products/hotdog.png' },
+				{ id: 'main12', name: 'French fries', price: 260, image: './products/frenchfries.png' },
+				{ id: 'main13', name: 'fried chicken', price: 250, image: './products/friedchicken.png' },
+				{ id: 'main14', name: 'sausage', price: 190, image: './products/sausage.png' },
+				{ id: 'main15', name: 'steak', price: 630, image: './products/steak.png' },
+				{ id: 'main16', name: 'omelet', price: 410, image: './products/omelet.png' },
+				{ id: 'main17', name: 'spaghetti', price: 560, image: './products/spaghetti.png' },
+				{ id: 'main18', name: 'pie', price: 330, image: './products/pie.png' },
+				{ id: 'main19', name: 'salad', price: 240, image: './products/salad.png' },
+				{ id: 'main20', name: 'fried noodles', price: 350, image: './products/friednoodles.png' },
+                { id: 'main21', name: 'ramen', price: 480, image: './products/ramen.png' },
+				{ id: 'main22', name: 'soba', price: 420, image: './products/soba.png' },
+				{ id: 'main23', name: 'beef bowl', price: 380, image: './products/beefbowl.png' },
+				{ id: 'main24', name: 'sushi', price: 400, image: './products/sushi.png' },
+				{ id: 'main25', name: 'tempura', price: 590, image: './products/tempura.png' },
+				{ id: 'main26', name: 'soup', price: 270, image: './products/soup.png' }
+            ],
+            dessert: [
+                { id: 'dessert1', name: 'cake', price: 250, image: './products/cake.png' },
+				{ id: 'dessert2', name: 'donut', price: 100, image: './products/donut.png' },
+                { id: 'dessert3', name: 'parfait', price: 320, image: './products/parfait.png' },
+				{ id: 'dessert4', name: 'pudding', price: 210, image: './products/pudding.png' },
+				{ id: 'dessert5', name: 'ice cream', price: 220, image: './products/icecream.png' },
+				{ id: 'dessert6', name: 'shaved ice', price: 170, image: './products/shavedice.png' },
+				{ id: 'dessert7', name: 'chocolate', price: 110, image: './products/chocolate.png' },
+				{ id: 'dessert8', name: 'cream puff', price: 120, image: './products/creampuff.png' },
+				{ id: 'dessert9', name: 'popcorn', price: 190, image: './products/popcorn.png' },
+				{ id: 'dessert10', name: 'potato chips', price: 120, image: './products/potatochips.png' },
+            ],
+            drink: [
+                { id: 'drink1', name: 'coffee', price: 150, image: './products/coffee.png' },
+                { id: 'drink2', name: 'tea', price: 140, image: './products/tea.png' },
+                { id: 'drink3', name: 'green tea', price: 150, image: './products/greentea.png' },
+				{ id: 'drink4', name: 'juice', price: 200, image: './products/juice.png' },
+				{ id: 'drink5', name: 'soda', price: 130, image: './products/soda.png' },
+				{ id: 'drink6', name: 'milk', price: 110, image: './products/milk.png' },
+				{ id: 'drink7', name: 'water', price: 0, image: './products/water.png' },
+				{ id: 'drink8', name: 'mineral water', price: 100, image: './products/mineralwater.png' }
+            ]
+        };
+
+        let cart = [];
+        let currentStep = 'select';
+        let selectedProduct = null;
+        let currentInput = '';
+        let newSetSelections = {
+            main: null,
+            dessert: null,
+            drink: null
+        };
+        let currentSetStep = 'main';
+
+            function createProductButton(product, isNewSet = false) {
+        const btn = document.createElement('button');
+        btn.className = `product-btn${isNewSet ? ' new-set' : ''}`;
+        
+        if (isNewSet) {
+            btn.innerHTML = `
+                <img src="${product.image}" alt="${product.name}" class="product-img">
+                <span>${product.name}</span>
+                <span>¥${product.price}</span>
+            `;
+        } else if (product.items) { // If it's a set
+            btn.innerHTML = `
+                <div class="set-images-container">
+                    <img src="${product.items[0]?.image || '/api/placeholder/32/32'}" alt="main" class="set-mini-img">
+                    <img src="${product.items[1]?.image || '/api/placeholder/32/32'}" alt="dessert" class="set-mini-img">
+                    <img src="${product.items[2]?.image || '/api/placeholder/32/32'}" alt="drink" class="set-mini-img">
+                </div>
+                <span>${product.name}</span>
+                <span>¥${product.price}</span>
+            `;
+        } else {
+            btn.innerHTML = `
+                <img src="${product.image}" alt="${product.name}" class="product-img">
+                <span>${product.name}</span>
+                <span>¥${product.price}</span>
+            `;
+        }
+        
+        btn.onclick = isNewSet ? openSetModal : () => handleProductClick(product);
+        return btn;
+    }
+
+
+        function renderProducts() {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = '';
+
+            // Create category sections
+            Object.entries(products).forEach(([category, items]) => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                
+                const categoryTitle = document.createElement('div');
+                categoryTitle.className = 'category-title';
+                categoryTitle.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                categoryDiv.appendChild(categoryTitle);
+
+                const productGrid = document.createElement('div');
+                productGrid.className = 'product-grid';
+
+                // Add "New Set" button only to Set category
+                if (category === 'set') {
+                    const newSetBtn = createProductButton(
+                        { name: 'Create New Set', price: '---', image: './products/new.png' },
+                        true
+                    );
+                    productGrid.appendChild(newSetBtn);
+                }
+
+                // Add products
+                items.forEach(product => {
+                    productGrid.appendChild(createProductButton(product));
+                });
+
+                categoryDiv.appendChild(productGrid);
+                container.appendChild(categoryDiv);
+            });
+        }
+
+        function openSetModal() {
+            const modal = document.getElementById('setModal');
+            modal.classList.add('active');
+            currentSetStep = 'main';
+            newSetSelections = { main: null, dessert: null, drink: null };
+            updateSetModal();
+        }
+
+        function updateSetModal() {
+            const modalContent = document.getElementById('modalContent');
+            let content = '';
+            let title = '';
+            let items = [];
+
+            switch (currentSetStep) {
+                case 'main':
+                    title = 'Choose Main Dish';
+                    items = products.main;
+                    break;
+                case 'dessert':
+                    title = 'Choose Dessert';
+                    items = products.dessert;
+                    break;
+                case 'drink':
+                    title = 'Choose Drink';
+                    items = products.drink;
+                    break;
+                case 'name':
+                    modalContent.innerHTML = `
+                        <div class="modal-title">Name Your Set</div>
+                        <input type="text" class="set-name-input" id="setNameInput" placeholder="Enter set name">
+                        <button class="action-btn" onclick="finalizeSet()">Create Set</button>
+                    `;
+                    return;
+            }
+
+            content = `
+                <div class="modal-title">${title}</div>
+                <div class="modal-grid">
+                    ${items.map(item => `
+                        <div class="modal-item ${newSetSelections[currentSetStep]?.id === item.id ? 'selected' : ''}"
+                             onclick="selectSetItem('${item.id}')">
+                            ${item.name}<br>¥${item.price}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            modalContent.innerHTML = content;
+        }
+
+        function selectSetItem(itemId) {
+            const items = products[currentSetStep];
+            const selectedItem = items.find(item => item.id === itemId);
+            newSetSelections[currentSetStep] = selectedItem;
+
+            if (currentSetStep === 'main') {
+                currentSetStep = 'dessert';
+            } else if (currentSetStep === 'dessert') {
+                currentSetStep = 'drink';
+            } else if (currentSetStep === 'drink') {
+                currentSetStep = 'name';
+            }
+
+            updateSetModal();
+        }
+
+        function finalizeSet() {
+            const setName = document.getElementById('setNameInput').value.trim();
+            if (!setName) {
+                alert('Please enter a name for your set');
+                return;
+            }
+
+            const totalPrice = 
+                (newSetSelections.main?.price || 0) +
+                (newSetSelections.dessert?.price || 0) +
+                (newSetSelections.drink?.price || 0);
+
+            // Apply a small discount for sets
+            const setPrice = Math.floor(totalPrice * 0.9);
+
+            const newSet = {
+                id: 'set' + (products.set.length + 1),
+                name: setName,
+                price: setPrice,
+                image: '/api/placeholder/64/64',
+                items: [
+                    newSetSelections.main,
+                    newSetSelections.dessert,
+                    newSetSelections.drink
+                ]
+            };
+
+            products.set.push(newSet);
+            closeModal();
+            renderProducts();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('setModal');
+            modal.classList.remove('active');
+        }
+
+        // Rest of the existing functions remain the same
+        function updateDisplay() {
+            const display = document.getElementById('display');
+            if (currentStep === 'payment') {
+                display.textContent = `¥${currentInput || '0'}`;
+            } else if (currentStep === 'quantity') {
+                display.textContent = currentInput || '0';
+            } else {
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                display.textContent = `¥${total}`;
+            }
+        }
+
+        function updateMessage(text) {
+            document.getElementById('message').textContent = text;
+        }
+
+        function updateCart() {
+            const cartEl = document.getElementById('cart');
+            cartEl.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <span>${item.quantity}x ${item.name}</span>
+                    <span>¥${(item.price * item.quantity)}</span>
+                </div>
+            `).join('') + (cart.length ? `
+                <div class="total">
+                    Total: ¥${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)}
+                </div>
+            ` : '');
+        }
+
+        function handleProductClick(product) {
+            if (currentStep !== 'select') return;
+            selectedProduct = product;
+            currentStep = 'quantity';
+            currentInput = '';
+            updateDisplay();
+            updateMessage(`How many ${product.name}s?`);
+        }
+
+        function handleNumberInput(num) {
+            if (currentStep === 'select') return;
+            if (currentInput.length >= 5) return;
+            currentInput += num;
+            updateDisplay();
+        }
+
+        function handleEnter() {
+            if (currentStep === 'quantity') {
+                const quantity = parseInt(currentInput);
+                if (quantity > 0) {
+                    cart.push({ ...selectedProduct, quantity });
+                    selectedProduct = null;
+                    currentInput = '';
+                    currentStep = 'select';
+                    updateCart();
+                    updateDisplay();
+                    updateMessage('Select a product to continue');
+                }
+            } else if (currentStep === 'payment') {
+                const payment = parseInt(currentInput);
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const change = payment - total;
+                if (change >= 0) {
+                    alert(`Change: ¥${change}\nThank you for shopping!`);
+                    cart = [];
+                    currentInput = '';
+                    currentStep = 'select';
+                    updateCart();
+                    updateDisplay();
+                    updateMessage('Select a product to start');
+                } else {
+                    alert('Not enough money! Please pay the full amount.');
+                }
+            }
+        }
+
+        function handleCheckout() {
+            if (cart.length === 0) return;
+            currentStep = 'payment';
+            currentInput = '';
+            updateDisplay();
+            updateMessage('Enter payment amount');
+        }
+
+        function handleNewOrder() {
+            cart = [];
+            currentStep = 'select';
+            currentInput = '';
+            selectedProduct = null;
+            updateCart();
+            updateDisplay();
+            updateMessage('Select a product to start');
+        }
+
+        // Initialize
+        renderProducts();
+
+        document.querySelectorAll('.num-btn').forEach(btn => {
+            const text = btn.textContent;
+            if (text === 'ENTER') {
+                btn.onclick = handleEnter;
+            } else {
+                btn.onclick = () => handleNumberInput(text);
+            }
+        });
+
+        document.getElementById('checkoutBtn').onclick = handleCheckout;
+        document.getElementById('newOrderBtn').onclick = handleNewOrder;
+
+        // Close modal when clicking outside
+        document.getElementById('setModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('setModal')) {
+                closeModal();
+            }
+        });
+		pageTitle.addEventListener('input', () => {
+        document.title = pageTitle.textContent;
+        });
+    </script>
+</body>
+</html>
