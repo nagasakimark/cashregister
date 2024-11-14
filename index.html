@@ -6,184 +6,256 @@
     <title>New Horizon Restaurant</title>
     <style>
         @font-face {
-            font-family: 'NH';
-            src: url('nh.otf') format('opentype');
-        }
-        
-        @font-face {
-            font-family: 'DS-Digital';
-            src: url('dsdigi.ttf') format('truetype');
-        }
+    font-family: 'NH';
+    src: url('nh.otf') format('opentype');
+}
 
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            height: 100vh;
-            font-family: 'NH', Arial, sans-serif;
-			background-color: #ffbb00;
-			background-image: linear-gradient( 179deg,  rgba(255, 196, 2, 0.9) 9.6%, rgba(243, 206, 71, 0.8) 50.1% );
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
-            overflow: hidden;
-        }
-        .header {
-            text-align: center;
-            padding: 10px;
-        }
-        .header h1 {
-            font-size: 2.5em;
-            margin: 0;
-            color: #fff;
-            text-shadow: 3px 3px 0 #e8a702;
-        }
-        .container {
-            display: flex;
-            gap: 15px;
-            flex: 1;
-            padding: 0 10px 10px 10px;
-            min-height: 0;
-        }
-        .products {
-            flex: 1;
-            background: #FFE066;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-            border: 3px solid rgba(0,0,0,0.1);
-            overflow-y: auto;
-        }
-        .register-section {
-            display: flex;
-            gap: 15px;
-            flex: 2;
-        }
-        .register {
-            flex: 3;
-            background: #98f59e;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            border: 3px solid rgba(0,0,0,0.1);
-        }
-        .cart-container {
-            flex: 2;
-            background: #87CEEB;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            border: 3px solid rgba(0,0,0,0.1);
-        }
-        .category {
-            margin-bottom: 20px;
-        }
-        .category-title {
-            font-size: 1.4em;
-            color: #333;
-            margin: 10px 0;
-            padding-bottom: 5px;
-            border-bottom: 2px solid rgba(0,0,0,0.1);
-        }
-        .product-grid {
+@font-face {
+    font-family: 'DS-Digital';
+    src: url('dsdigi.ttf') format('truetype');
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'NH', Arial, sans-serif;
+    background-color: #ffbb00;
+    background-image: linear-gradient(179deg, rgba(255, 196, 2, 0.9) 9.6%, rgba(243, 206, 71, 0.8) 50.1%);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.header {
+    text-align: center;
+    padding: 10px;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin: 0;
+    color: #fff;
+    text-shadow: 3px 3px 0 #e8a702;
+}
+
+.container {
+    display: flex;
+    gap: 15px;
+    flex: 1;
+    padding: 0 10px 10px 10px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.products {
+    flex: 1;
+    background: #FFE066;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border: 3px solid rgba(0,0,0,0.1);
+    overflow-y: auto;
+}
+
+.register-section {
+    display: flex;
+    gap: 15px;
+    flex: 2;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.register {
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+    background: #98f59e;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 15px;
+    border: 3px solid rgba(0,0,0,0.1);
+    min-height: 0;
+    overflow: hidden;
+}
+
+.register h2 {
+    margin: 0 0 15px 0;
+    flex-shrink: 0;
+    font-size: 1.6em;
+    color: #333;
+}
+
+.register-buttons {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding-right: 5px;
-            padding-top: 4px;
-        }
-        .product-btn {
-            background: rgba(255,255,255,0.9);
-            border: 3px solid rgba(0,0,0,0.1);
-            border-radius: 12px;
-            padding: 12px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 0.3s;
-            height: 120px;
-            font-family: 'NH', Arial, sans-serif;
-			font-size: 0.9em;
-        }
-        .product-btn:hover {
-            border-color: #4ECDC4;
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .product-btn.new-set {
-            background: rgba(255,255,255,0.9);
-            border: 3px solid rgba(0,0,0,0.1);
-            border-radius: 12px;
-            padding: 12px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 0.3s;
-            height: 120px;
-        }
-         .product-img {
-        width: 55px;  
-        height: 55px; 
-        object-fit: cover;
-        margin-bottom: 8px;
-        border-radius: 8px;
-    }
-
-    .set-images-container {
-        display: flex;
-        gap: 4px;
-        justify-content: center;
-        margin-bottom: 8px;
-    }
-
-    .set-mini-img {
-        width: 55px;
-        height: 55px;
-        object-fit: cover;
-        border-radius: 4px;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
-        .cart {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-            padding: 12px;
-            background: rgba(255,255,255,0.9);
-            border-radius: 8px;
-            border: 2px solid rgba(0,0,0,0.1);
-        }
-        .total {
-            border-top: 3px solid rgba(0,0,0,0.1);
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
             margin-top: 10px;
-            padding-top: 15px;
-            font-weight: bold;
-            font-size: 1.4em;
-            color: #333;
         }
+
+.cart-container {
+    flex: 2;
+    background: #87CEEB;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 3px solid rgba(0,0,0,0.1);
+    min-height: 0;
+}
+
+.cart {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    min-height: 0;
+}
+
+.category {
+    margin-bottom: 20px;
+}
+
+.category-title {
+    font-size: 1.4em;
+    color: #333;
+    margin: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding-right: 5px;
+    padding-top: 4px;
+}
+
+.product-btn {
+    background: rgba(255,255,255,0.9);
+    border: 3px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Added to center content vertically */
+    transition: all 0.3s;
+    height: 120px;
+    font-family: 'NH', Arial, sans-serif;
+    font-size: 1.0em; /* Increased from 0.9em */
+    padding-bottom: 20px; /* Added extra padding at bottom */
+}
+
+.product-btn:hover {
+    border-color: #4ECDC4;
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.product-btn.new-set {
+    background: rgba(255,255,255,0.9);
+    border: 3px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s;
+    height: 120px;
+}
+
+.product-img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    margin-bottom: 8px;
+    border-radius: 8px;
+}
+
+.set-images-container {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.set-mini-img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    padding: 12px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 8px;
+    border: 2px solid rgba(0,0,0,0.1);
+}
+
+.total {
+    border-top: 3px solid rgba(0,0,0,0.1);
+    margin-top: 10px;
+    padding-top: 15px;
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #333;
+}
+
+.display {
+    background: #001f3f;
+    color: #01FF70;
+    padding: 15px;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    font-family: 'DS-Digital', monospace;
+    text-align: right;
+    min-height: 65px;
+    border: 3px solid #00172B;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+
+.message {
+    color: #333;
+    margin-bottom: 12px;
+    min-height: 24px;
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
         .numpad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-top: auto;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
         }
-        .num-btn {
-            padding: 15px;
-            font-size: 24px;
+
+.num-btn {
+            padding: clamp(8px, 2vh, 15px);
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
             border: none;
             border-radius: 12px;
             cursor: pointer;
@@ -192,149 +264,144 @@
             color: white;
             box-shadow: 0 3px 6px rgba(0,0,0,0.1);
         }
-        .num-btn:hover {
+
+.num-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-        .num-btn:active {
+
+.num-btn:active {
             transform: translateY(1px);
         }
-        .num-0 { background: #FF851B; }
+
+.num-0, .num-00, .num-000 { background: #FF851B; }
         .num-1 { background: #7FDBFF; }
         .num-2 { background: #B10DC9; }
         .num-3 { background: #39CCCC; }
         .num-4 { background: #FF4136; }
         .num-5 { background: #01FF70; }
         .num-6 { background: #F012BE; }
-        .num-7 { background: #FFDC00; color: white; }
+        .num-7 { background: #FFDC00; }
         .num-8 { background: #85144b; }
         .num-9 { background: #3D9970; }
-        .num-00 { background: #FF851B; }
-        
-        .num-enter { 
-            background: #2ECC40;
+
+        .num-enter {
             grid-column: span 2;
-            font-size: 20px;
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
             text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
-        }
-        .display {
-            background: #001f3f;
-            color: #01FF70;
-            padding: 15px;
-            font-size: 32px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            font-family: 'DS-Digital', monospace;
-            text-align: right;
-            min-height: 65px;
-            border: 3px solid #00172B;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .message {
-            color: #333;
-            margin-bottom: 12px;
-            min-height: 24px;
-            font-size: 1.2em;
-            text-align: center;
-            font-weight: bold;
-        }
-        .action-btns {
-            display: flex;
-            gap: 12px;
-            margin-top: 15px;
-        }
-        .action-btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            color: white;
-            font-weight: bold;
-            font-size: 1.1em;
-            flex: 1;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            transition: all 0.2s;
-        }
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        #checkoutBtn {
-            background: #0074D9;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
-        }
-        .action-btn.clear {
-            background: #FF4136;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
-        }
-        h2 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.6em;
-            color: #333;
+            background: #2ECC40;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			
         }
 
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+        #checkoutBtn {
+            grid-column: span 2;
+            background: #0074D9;
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
         }
-        .modal.active {
-            display: flex;
+
+        #newOrderBtn {
+            background: #FF4136;
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
         }
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .modal-title {
-            font-size: 1.4em;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        .modal-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .modal-item {
-            padding: 10px;
-            border: 2px solid #4ECDC4;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-        }
-        .modal-item:hover {
-            background: #4ECDC4;
-            color: white;
-        }
-        .modal-item.selected {
-            background: #4ECDC4;
-            color: white;
-        }
-        .set-name-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 2px solid #4ECDC4;
-            border-radius: 8px;
-            font-size: 1.1em;
-        }
-		.qr-icon {
+
+.action-btn {
+    padding: clamp(8px, 2vh, 12px) clamp(12px, 3vw, 20px);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    flex: 1;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#checkoutBtn {
+    background: #0074D9;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+.action-btn.clear {
+    background: #FF4136;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-title {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-item {
+    padding: 10px;
+    border: 2px solid #4ECDC4;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.modal-item:hover,
+.modal-item.selected {
+    background: #4ECDC4;
+    color: white;
+}
+
+.set-name-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #4ECDC4;
+    border-radius: 8px;
+    font-size: 1.1em;
+}
+
+.qr-icon {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -348,10 +415,10 @@
     justify-content: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     transition: transform 0.2s;
-    padding: 8px;  /* Add this line to give some padding to the image */
+    padding: 8px;
 }
 
-.qr-icon img {  /* Add this new style */
+.qr-icon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -382,39 +449,56 @@
     background: white;
     padding: 20px;
     border-radius: 12px;
-    width: 90vw;  /* 90% of viewport width */
-    height: 90vh; /* 90% of viewport height */
-    max-width: none;  /* Remove the previous max-width limit */
-    display: flex;    /* Add this to allow the image to expand */
-    justify-content: center;  /* Center the image horizontally */
-    align-items: center;      /* Center the image vertically */
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .qr-modal-content img {
-    max-width: 100%;    /* Maximum width of container */
-    max-height: 100%;   /* Maximum height of container */
-    object-fit: contain; /* Maintain aspect ratio */
-    width: auto;        /* Allow natural sizing */
-    height: auto;       /* Allow natural sizing */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: auto;
+    height: auto;
 }
 
-    .modal .action-btn {
-        background: #2ECC40; /* Same green as the enter button */
-        color: white;
-        text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
-        border: none;
-        padding: 12px 20px;
-        border-radius: 12px;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 1.1em;
-        transition: all 0.2s;
-    }
+.modal .action-btn {
+    background: #2ECC40;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
 
-    .modal .action-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
+@media screen and (max-height: 800px) {
+    .header h1 { font-size: 2em; margin: 5px 0; }
+    .register { padding: 10px; }
+    .numpad { gap: 8px; }
+    .display { min-height: 50px; margin-bottom: 8px; }
+    .message { margin-bottom: 8px; min-height: 20px; }
+    .action-btns { margin-top: 8px; }
+    .product-btn { height: 100px; padding: 8px; }
+    .product-img { width: 45px; height: 45px; }
+    .cart-item { padding: 8px; font-size: 1em; margin-bottom: 8px; }
+	.register-buttons {
+                gap: 8px;
+                margin-top: 8px;
+				}
+}
+
+@media screen and (max-height: 600px) {
+    .header h1 { font-size: 1.5em; margin: 3px 0; }
+    .register { padding: 8px; }
+    .numpad { gap: 6px; }
+    .num-btn { padding: 6px; font-size: 16px; }
+    .num-btn.num-enter { font-size: 14px; }
+    .display { min-height: 40px; margin-bottom: 6px; }
+    .message { margin-bottom: 6px; min-height: 16px; }
+    .action-btns { margin-top: 6px; }
+	.register-buttons {
+                gap: 6px;
+                margin-top: 6px;
+            }
+}
     </style>
 </head>
 <body>
@@ -428,28 +512,29 @@
         </div>
         <div class="register-section">
             <div class="register">
-                <h2>Cash Register</h2>
-                <div class="message" id="message">Select a product to start</div>
-                <div class="display" id="display">¥0</div>
-                <div class="numpad">
-                    <button class="num-btn num-1">1</button>
-                    <button class="num-btn num-2">2</button>
-                    <button class="num-btn num-3">3</button>
-                    <button class="num-btn num-4">4</button>
-                    <button class="num-btn num-5">5</button>
-                    <button class="num-btn num-6">6</button>
-                    <button class="num-btn num-7">7</button>
-                    <button class="num-btn num-8">8</button>
-                    <button class="num-btn num-9">9</button>
-                    <button class="num-btn num-0">0</button>
-                    <button class="num-btn num-00">00</button>
-                    <button class="num-btn num-enter">ENTER</button>
-                </div>
-                <div class="action-btns">
-                    <button class="action-btn" id="checkoutBtn">Checkout</button>
-                    <button class="action-btn clear" id="newOrderBtn">New Order</button>
-                </div>
-            </div>
+        <h2>Cash Register</h2>
+        <div class="message" id="message">Select a product to start</div>
+        <div class="display" id="display">¥0</div>
+        <div class="numpad">
+            <button class="num-btn num-1">1</button>
+            <button class="num-btn num-2">2</button>
+            <button class="num-btn num-3">3</button>
+            <button class="num-btn num-4">4</button>
+            <button class="num-btn num-5">5</button>
+            <button class="num-btn num-6">6</button>
+            <button class="num-btn num-7">7</button>
+            <button class="num-btn num-8">8</button>
+            <button class="num-btn num-9">9</button>
+            <button class="num-btn num-0">0</button>
+            <button class="num-btn num-00">00</button>
+			<button class="num-btn num-000">000</button>
+            <button class="num-btn num-enter">ENTER</button>
+        </div>
+        <div class="register-buttons">
+            <button class="num-btn" id="checkoutBtn">CHECKOUT</button>
+            <button class="num-btn" id="newOrderBtn">NEW ORDER</button>
+        </div>
+    </div>
             <div class="cart-container">
                 <h2>Current Order</h2>
                 <div class="cart" id="cart"></div>
