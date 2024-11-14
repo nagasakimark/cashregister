@@ -94,11 +94,12 @@ body {
 }
 
 .register-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 10px;
-        }
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
 
 .cart-container {
     flex: 2;
@@ -144,17 +145,18 @@ body {
     background: rgba(255,255,255,0.9);
     border: 3px solid rgba(0,0,0,0.1);
     border-radius: 12px;
-    padding: 12px;
+    padding: 8px 12px 12px 12px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Added to center content vertically */
+    justify-content: space-between;
     transition: all 0.3s;
     height: 120px;
     font-family: 'NH', Arial, sans-serif;
-    font-size: 1.0em; /* Increased from 0.9em */
-    padding-bottom: 20px; /* Added extra padding at bottom */
+    font-size: 0.9em;
+    min-height: 120px;
+    width: 100%;
 }
 
 .product-btn:hover {
@@ -164,36 +166,42 @@ body {
 }
 
 .product-btn.new-set {
-    background: rgba(255,255,255,0.9);
-    border: 3px solid rgba(0,0,0,0.1);
-    border-radius: 12px;
-    padding: 12px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.3s;
     height: 120px;
+    min-height: 120px;
+    padding: 8px 12px 12px 12px;
+    width: 100%;
 }
 
 .product-img {
-    width: 55px;
-    height: 55px;
+    width: 48px;
+    height: 48px;
     object-fit: cover;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     border-radius: 8px;
+}
+
+.product-btn span {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.2;
+    margin: 2px 0;
 }
 
 .set-images-container {
     display: flex;
     gap: 4px;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+    height: 48px;
 }
 
 .set-mini-img {
-    width: 55px;
-    height: 55px;
+    width: 48px;
+    height: 48px;
     object-fit: cover;
     border-radius: 4px;
     border: 1px solid rgba(0,0,0,0.1);
@@ -394,6 +402,7 @@ body {
     cursor: pointer;
     text-align: center;
     transition: all 0.2s;
+	word-wrap: break-word;
 }
 
 .modal-item:hover,
@@ -479,35 +488,180 @@ body {
     text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
 }
 
+.register-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  /* Explicitly set to two equal columns */
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#checkoutBtn {
+    grid-column: 1;  /* Explicitly place checkout button in first column */
+}
+
+#newOrderBtn {
+    grid-column: 2;  /* Explicitly place new order button in second column */
+}
+
+
+#checkoutBtn, #newOrderBtn {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    font-size: clamp(0.8rem, 2vw, 1.25rem);
+    padding: clamp(8px, 2vh, 15px);
+    min-height: 44px;
+    grid-row: 1;  /* Ensure both buttons are in the first row */
+}
+
+/* Add custom scrollbar styling for the products area */
+.products::-webkit-scrollbar {
+    width: 12px;
+}
+
+.products::-webkit-scrollbar-track {
+    background: rgba(255, 224, 102, 0.3);
+    border-radius: 10px;
+    margin: 8px 0;
+}
+
+.products::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ffbb00 0%, #e8a702 100%);
+    border: 3px solid #FFE066;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.products::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #e8a702 0%, #d69602 100%);
+}
+
+/* For Firefox */
+.products {
+    scrollbar-width: thin;
+    scrollbar-color: #ffbb00 rgba(255, 224, 102, 0.3);
+}
+
+/* Also style the cart area scrollbar for consistency */
+.cart::-webkit-scrollbar {
+    width: 12px;
+}
+
+.cart::-webkit-scrollbar-track {
+    background: rgba(135, 206, 235, 0.3);
+    border-radius: 10px;
+    margin: 8px 0;
+}
+
+.cart::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #5fb8e0 0%, #4a9cc2 100%);
+    border: 3px solid #87CEEB;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.cart::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #4a9cc2 0%, #3d89ab 100%);
+}
+
+/* For Firefox */
+.cart {
+    scrollbar-width: thin;
+    scrollbar-color: #5fb8e0 rgba(135, 206, 235, 0.3);
+}
+
 @media screen and (max-height: 800px) {
-    .header h1 { font-size: 2em; margin: 5px 0; }
-    .register { padding: 10px; }
-    .numpad { gap: 8px; }
-    .display { min-height: 50px; margin-bottom: 8px; }
-    .message { margin-bottom: 8px; min-height: 20px; }
-    .action-btns { margin-top: 8px; }
-    .product-btn { height: 100px; padding: 8px; }
-    .product-img { width: 45px; height: 45px; }
-    .cart-item { padding: 8px; font-size: 1em; margin-bottom: 8px; }
-	.register-buttons {
-                gap: 8px;
-                margin-top: 8px;
-				}
+    .header h1 { 
+        font-size: 2em; 
+        margin: 5px 0; 
+    }
+    .register { 
+        padding: 10px; 
+    }
+    .numpad { 
+        gap: 8px; 
+    }
+    .display { 
+        min-height: 50px; 
+        margin-bottom: 8px; 
+        font-size: 1.8rem;
+    }
+    .message { 
+        margin-bottom: 8px; 
+        min-height: 20px; 
+    }
+    .action-btns { 
+        margin-top: 8px; 
+    }
+    .cart-item { 
+        padding: 8px; 
+        font-size: 1em; 
+        margin-bottom: 8px; 
+    }
+    .register-buttons {
+        gap: 8px;
+        margin-top: 8px;
+    }
+    
+    #checkoutBtn, #newOrderBtn {
+        min-height: 38px;
+        padding: clamp(6px, 1.5vh, 12px);
+    }
+}
+    .num-btn {
+        padding: 8px;
+        font-size: 1.2rem;
+    }
+	.product-btn, .product-btn.new-set {
+        height: 100px;
+        min-height: 100px;
+        padding: 6px 10px 10px 10px;
+    }
+    
+    .product-img, .set-mini-img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .set-images-container {
+        height: 40px;
+        margin-bottom: 3px;
+    }
+    
+    .product-btn {
+        font-size: 0.85em;
+    }
+}
+
+@media screen and (max-height: 700px) {
+     .register-buttons {
+        gap: 6px;
+        margin-top: 6px;
+    }
+    
+    #checkoutBtn, #newOrderBtn {
+        min-height: 34px;
+        padding: clamp(4px, 1vh, 10px);
+        font-size: clamp(0.7rem, 1.5vw, 1rem);
+    }
 }
 
 @media screen and (max-height: 600px) {
-    .header h1 { font-size: 1.5em; margin: 3px 0; }
-    .register { padding: 8px; }
-    .numpad { gap: 6px; }
-    .num-btn { padding: 6px; font-size: 16px; }
-    .num-btn.num-enter { font-size: 14px; }
-    .display { min-height: 40px; margin-bottom: 6px; }
-    .message { margin-bottom: 6px; min-height: 16px; }
-    .action-btns { margin-top: 6px; }
-	.register-buttons {
-                gap: 6px;
-                margin-top: 6px;
-            }
+    .register-buttons {
+        gap: 4px;
+        margin-top: 4px;
+    }
+    
+    #checkoutBtn, #newOrderBtn {
+        min-height: 30px;
+        padding: clamp(3px, 0.8vh, 8px);
+        font-size: clamp(0.6rem, 1.2vw, 0.9rem);
+    }
 }
     </style>
 </head>
@@ -630,42 +784,41 @@ body {
         let currentSetStep = 'main';
 
             function createProductButton(product, isNewSet = false) {
-        const btn = document.createElement('button');
-        btn.className = `product-btn${isNewSet ? ' new-set' : ''}`;
-        
-        if (isNewSet) {
-            btn.innerHTML = `
-                <img src="${product.image}" alt="${product.name}" class="product-img">
-                <span>${product.name}</span>
-                <span>¥${product.price}</span>
-            `;
-        } else if (product.items) { // If it's a set
-            btn.innerHTML = `
-                <div class="set-images-container">
-                    <img src="${product.items[0]?.image || '/api/placeholder/32/32'}" alt="main" class="set-mini-img">
-                    <img src="${product.items[1]?.image || '/api/placeholder/32/32'}" alt="dessert" class="set-mini-img">
-                    <img src="${product.items[2]?.image || '/api/placeholder/32/32'}" alt="drink" class="set-mini-img">
-                </div>
-                <span>${product.name}</span>
-                <span>¥${product.price}</span>
-            `;
-        } else {
-            btn.innerHTML = `
-                <img src="${product.image}" alt="${product.name}" class="product-img">
-                <span>${product.name}</span>
-                <span>¥${product.price}</span>
-            `;
-        }
-        
-        btn.onclick = isNewSet ? openSetModal : () => handleProductClick(product);
-        return btn;
+    const btn = document.createElement('button');
+    btn.className = `product-btn${isNewSet ? ' new-set' : ''}`;
+    
+    if (isNewSet) {
+        btn.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="product-img">
+            <span>${product.name}</span>
+        `;
+    } else if (product.items) { // If it's a set
+        btn.innerHTML = `
+            <div class="set-images-container">
+                <img src="${product.items[0]?.image || '/api/placeholder/32/32'}" alt="main" class="set-mini-img">
+                <img src="${product.items[1]?.image || '/api/placeholder/32/32'}" alt="dessert" class="set-mini-img">
+                <img src="${product.items[2]?.image || '/api/placeholder/32/32'}" alt="drink" class="set-mini-img">
+            </div>
+            <span>${product.name}</span>
+            <span>¥${product.price}</span>
+        `;
+    } else {
+        btn.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="product-img">
+            <span>${product.name}</span>
+            <span>¥${product.price}</span>
+        `;
     }
+    
+    btn.onclick = isNewSet ? openSetModal : () => handleProductClick(product);
+    return btn;
+}
+
 
 
         function renderProducts() {
             const container = document.getElementById('productsContainer');
             container.innerHTML = '';
-
             // Create category sections
             Object.entries(products).forEach(([category, items]) => {
                 const categoryDiv = document.createElement('div');
@@ -681,12 +834,12 @@ body {
 
                 // Add "New Set" button only to Set category
                 if (category === 'set') {
-                    const newSetBtn = createProductButton(
-                        { name: 'Create New Set', price: '---', image: './products/new.png' },
-                        true
-                    );
-                    productGrid.appendChild(newSetBtn);
-                }
+    const newSetBtn = createProductButton(
+        { name: 'Create New Set', image: './products/new.png' },
+        true
+    );
+    productGrid.appendChild(newSetBtn);
+}
 
                 // Add products
                 items.forEach(product => {
@@ -728,7 +881,7 @@ body {
             case 'name':
                 modalContent.innerHTML = `
                     <div class="modal-title">Name Your Set</div>
-                    <input type="text" class="set-name-input" id="setNameInput" placeholder="Enter set name">
+                    <input type="text" class="set-name-input" id="setNameInput" maxlength="30" placeholder="Enter set name">
                     <button class="action-btn" onclick="finalizeSet()">Create Set</button>
                 `;
                 return;
