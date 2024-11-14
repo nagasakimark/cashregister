@@ -397,6 +397,24 @@
     width: auto;        /* Allow natural sizing */
     height: auto;       /* Allow natural sizing */
 }
+
+    .modal .action-btn {
+        background: #2ECC40; /* Same green as the enter button */
+        color: white;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+        border: none;
+        padding: 12px 20px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.1em;
+        transition: all 0.2s;
+    }
+
+    .modal .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
     </style>
 </head>
 <body>
@@ -594,46 +612,46 @@
         }
 
         function updateSetModal() {
-            const modalContent = document.getElementById('modalContent');
-            let content = '';
-            let title = '';
-            let items = [];
+        const modalContent = document.getElementById('modalContent');
+        let content = '';
+        let title = '';
+        let items = [];
 
-            switch (currentSetStep) {
-                case 'main':
-                    title = 'Choose Main Dish';
-                    items = products.main;
-                    break;
-                case 'dessert':
-                    title = 'Choose Dessert';
-                    items = products.dessert;
-                    break;
-                case 'drink':
-                    title = 'Choose Drink';
-                    items = products.drink;
-                    break;
-                case 'name':
-                    modalContent.innerHTML = `
-                        <div class="modal-title">Name Your Set</div>
-                        <input type="text" class="set-name-input" id="setNameInput" placeholder="Enter set name">
-                        <button class="action-btn" onclick="finalizeSet()">Create Set</button>
-                    `;
-                    return;
-            }
-
-            content = `
-                <div class="modal-title">${title}</div>
-                <div class="modal-grid">
-                    ${items.map(item => `
-                        <div class="modal-item ${newSetSelections[currentSetStep]?.id === item.id ? 'selected' : ''}"
-                             onclick="selectSetItem('${item.id}')">
-                            ${item.name}<br>¥${item.price}
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            modalContent.innerHTML = content;
+        switch (currentSetStep) {
+            case 'main':
+                title = 'Choose Main Dish';
+                items = products.main;
+                break;
+            case 'dessert':
+                title = 'Choose Dessert';
+                items = products.dessert;
+                break;
+            case 'drink':
+                title = 'Choose Drink';
+                items = products.drink;
+                break;
+            case 'name':
+                modalContent.innerHTML = `
+                    <div class="modal-title">Name Your Set</div>
+                    <input type="text" class="set-name-input" id="setNameInput" placeholder="Enter set name">
+                    <button class="action-btn" onclick="finalizeSet()">Create Set</button>
+                `;
+                return;
         }
+
+        content = `
+            <div class="modal-title">${title}</div>
+            <div class="modal-grid">
+                ${items.map(item => `
+                    <div class="modal-item ${newSetSelections[currentSetStep]?.id === item.id ? 'selected' : ''}"
+                         onclick="selectSetItem('${item.id}')">
+                        ${item.name}<br>¥${item.price}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        modalContent.innerHTML = content;
+    }
 
         function selectSetItem(itemId) {
             const items = products[currentSetStep];
@@ -690,16 +708,18 @@
 
         // Rest of the existing functions remain the same
         function updateDisplay() {
-            const display = document.getElementById('display');
-            if (currentStep === 'payment') {
-                display.textContent = `¥${currentInput || '0'}`;
-            } else if (currentStep === 'quantity') {
-                display.textContent = currentInput || '0';
-            } else {
-                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                display.textContent = `¥${total}`;
-            }
-        }
+    const display = document.getElementById('display');
+    if (currentStep === 'payment') {
+        display.textContent = `¥${currentInput || '0'}`;
+    } else if (currentStep === 'quantity') {
+        display.textContent = currentInput || '0';
+    } else {
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        display.textContent = `¥${total}`;
+    }
+}
+
+
 
         function updateMessage(text) {
             document.getElementById('message').textContent = text;
@@ -736,34 +756,35 @@
         }
 
         function handleEnter() {
-            if (currentStep === 'quantity') {
-                const quantity = parseInt(currentInput);
-                if (quantity > 0) {
-                    cart.push({ ...selectedProduct, quantity });
-                    selectedProduct = null;
-                    currentInput = '';
-                    currentStep = 'select';
-                    updateCart();
-                    updateDisplay();
-                    updateMessage('Select a product to continue');
-                }
-            } else if (currentStep === 'payment') {
-                const payment = parseInt(currentInput);
-                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const change = payment - total;
-                if (change >= 0) {
-                    alert(`Change: ¥${change}\nThank you for shopping!`);
-                    cart = [];
-                    currentInput = '';
-                    currentStep = 'select';
-                    updateCart();
-                    updateDisplay();
-                    updateMessage('Select a product to start');
-                } else {
-                    alert('Not enough money! Please pay the full amount.');
-                }
-            }
+    if (currentStep === 'quantity') {
+        const quantity = parseInt(currentInput);
+        if (quantity > 0) {
+            cart.push({ ...selectedProduct, quantity });
+            selectedProduct = null;
+            currentInput = '';
+            currentStep = 'select';
+            updateCart();
+            updateDisplay();
+            updateMessage('Select a product to continue');
         }
+    } else if (currentStep === 'payment') {
+        const payment = parseInt(currentInput);
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const change = payment - total;
+        if (change >= 0) {
+            const display = document.getElementById('display');
+            display.textContent = `Your change is: ¥${change}`;  // Show change in display
+            updateMessage('Thank you for shopping!');
+            cart = [];
+            currentInput = '';
+            currentStep = 'select';
+            updateCart();
+        } else {
+            updateMessage('Not enough money! Please pay the full amount.');
+        }
+    }
+}
+
 
         function handleCheckout() {
             if (cart.length === 0) return;
