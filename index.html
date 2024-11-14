@@ -244,14 +244,24 @@ body {
     flex-shrink: 0;
 }
 
-        .numpad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            flex: 1;
-            min-height: 0;
-            overflow: hidden;
-        }
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.num-btn.num-enter {
+    grid-column: 2;  /* Place in middle column */
+    font-size: clamp(0.9rem, 2vw, 1.25rem);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    background: #2ECC40;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .num-btn {
             padding: clamp(8px, 2vh, 15px);
@@ -275,11 +285,11 @@ body {
         }
 
 .num-0, .num-00, .num-000 { background: #FF851B; }
-        .num-1 { background: #7FDBFF; }
+        .num-1 { background: #348ceb; }
         .num-2 { background: #B10DC9; }
-        .num-3 { background: #39CCCC; }
+        .num-3 { background: #19768a; }
         .num-4 { background: #FF4136; }
-        .num-5 { background: #01FF70; }
+        .num-5 { background: #52a13d; }
         .num-6 { background: #F012BE; }
         .num-7 { background: #FFDC00; }
         .num-8 { background: #85144b; }
